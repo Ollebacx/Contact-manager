@@ -14,9 +14,10 @@ export class AppComponent {
     email: '',
     telephone: null,
   };
-
+  public error: boolean = false;
+  public nameError: string = '';
   saveContact(contact : any){
-
+    if (this.contact.name.length > 6){
     this.contactList.push(contact);
 
     this.contact = {
@@ -24,7 +25,18 @@ export class AppComponent {
       lastname: '',
       email: '',
       telephone: null,
-    };  }
-  
-}
-//Comentario: Pueba 1
+    } 
+  }
+
+  }
+  onBlur(){
+    if (this.contact.name.length < 6){
+      this.nameError = 'Tu nombre tiene que tener más de 6 caracteres.';
+      this.error = true;
+    }
+  }
+  onFocus(){
+      this.nameError = '';
+      this.error = false;
+    }
+  }
