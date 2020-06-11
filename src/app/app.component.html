@@ -16,8 +16,8 @@
       <input placeholder="Search" type="search" id="text" [(ngModel)]="contact.name"><br>
 
       <label for="text">First Name</label>
-      <input type="text" id="text" [(ngModel)]="contact.name" [ngModelOptions]="{standalone: true}"><br>
-
+      <input [ngClass]="{'inputError': error == true}" type="text" id="text" [(ngModel)]="contact.name" [ngModelOptions]="{standalone: true}" (focus)="onFocus()" (blur)="onBlur()"><br>
+      <span  [hidden]="this.contact.name.length == 0 || this.contact.name.length > 6 || nameError == ''" class="error">{{nameError}}<br></span>
       <label for="text">Last Name</label>
       <input type="text" id="text" [(ngModel)]="contact.lastname"  [ngModelOptions]="{standalone: true}"><br>
 
@@ -33,6 +33,7 @@
         <span>{{contact.lastname}}</span><br>
         <span>{{contact.email}}</span><br>
         <span>{{contact.telephone}}</span><br>
+
     </div>
     </form>
   </div>
