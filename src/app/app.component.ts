@@ -40,4 +40,3 @@ export class AppComponent {
       this.error = false;
     }
   }
-
