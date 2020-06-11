@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { convertActionBinding } from '@angular/compiler/src/compiler_util/expression_converter';
 
 @Component({
   selector: 'app-root',
@@ -13,6 +14,7 @@ export class AppComponent {
     lastname: '',
     email: '',
     telephone: null,
+    contacted: false,
   };
   public error: boolean = false;
   public nameError: string = '';
@@ -25,6 +27,7 @@ export class AppComponent {
       lastname: '',
       email: '',
       telephone: null,
+      contacted: false,
     } 
   }
 
@@ -39,4 +42,7 @@ export class AppComponent {
       this.nameError = '';
       this.error = false;
     }
+
   }
+
+
