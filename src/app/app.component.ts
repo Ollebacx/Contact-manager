@@ -42,7 +42,9 @@ export class AppComponent {
   eliminarContacto(task: any): void {
     this.contactList = this.contactList.filter(i => i != task)
   }
-
+  eliminarTodo(): void {
+    this.contactList = this.contactList.filter(i => i == '')
+  }
 
   onBlur() {
     if (this.contact.name.length < 6) {
