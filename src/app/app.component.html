@@ -33,6 +33,7 @@
         <span>{{contact.lastname}}</span><br>
         <span>{{contact.email}}</span><br>
         <span>{{contact.telephone}}</span><br>
+        <button (click)="eliminarContacto(contact)" >Eliminar</button>
         <button class="button_contact" [hidden]="this.contact.contacted == true" (click)="this.contact.contacted = !this.contact.contacted">Contactar</button> 
         <button class="button_undo" [hidden]="this.contact.contacted == false" (click)="this.contact.contacted = !this.contact.contacted">Deshacer</button> 
     </div>

@@ -18,31 +18,36 @@ export class AppComponent {
   };
   public error: boolean = false;
   public nameError: string = '';
-  saveContact(contact : any){
-    if (this.contact.name.length > 6){
-    this.contactList.push(contact);
 
-    this.contact = {
-      name: '',
-      lastname: '',
-      email: '',
-      telephone: null,
-      contacted: false,
-    } 
-  }
+  saveContact(contact: any) {
+    if (this.contact.name.length > 6) {
+      this.contactList.push(contact);
 
-  }
-  onBlur(){
-    if (this.contact.name.length < 6){
-      this.nameError = 'Tu nombre tiene que tener más de 6 caracteres.';
-      this.error = true;
+      this.contact = {
+        name: '',
+        lastname: '',
+        email: '',
+        telephone: null,
+        contacted: false,
+      }
     }
   }
-  onFocus(){
-      this.nameError = '';
-      this.error = false;
-    }
 
+  eliminarContacto(task: any): void{
+    this.contactList = this.contactList.filter(i => i != task)
   }
+
+onBlur() {
+  if (this.contact.name.length < 6) {
+    this.nameError = 'Tu nombre tiene que tener más de 6 caracteres.';
+    this.error = true;
+  }
+}
+onFocus() {
+  this.nameError = '';
+  this.error = false;
+}
+
+}
 
 
