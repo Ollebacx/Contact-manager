@@ -16,7 +16,7 @@
       <input placeholder="Search" type="search" id="text" [(ngModel)]="contact.name" [ngModelOptions]="{standalone: true}"><br>
 
       <label for="text">First Name</label>
-      <input [ngClass]="{'inputError': error == true && contact.name.length != 0}" type="text" id="text"
+      <input [ngClass]="{'inputError': nameError.length > 0 && contact.name != ''}" type="text" id="text"
         [(ngModel)]="contact.name" [ngModelOptions]="{standalone: true}" (focus)="onFocus()" (blur)="onBlur()"><br>
       <span [hidden]="this.contact.name.length == 0 || this.contact.name.length > 6 || nameError == ''"
         class="error">{{nameError}}<br></span>
@@ -24,7 +24,7 @@
       <input type="text" id="text" [(ngModel)]="contact.lastname" [ngModelOptions]="{standalone: true}"><br>
 
       <label for="text">Email</label>
-      <input type="email" id="text" [(ngModel)]="contact.email" [ngModelOptions]="{standalone: true}" (blur)="onBlur()" (focus)="onFocus()"><br>
+      <input [ngClass]="{'inputError': emailError.length > 0}" type="email" id="text" [(ngModel)]="contact.email" [ngModelOptions]="{standalone: true}" (blur)="onBlur()" (focus)="onFocus()"  ><br>
       <span [hidden]="this.contact.email.length == 0 || emailError ==''" class="error">{{emailError}}<br></span>
       <label for="text">Phone number</label>
       <input type="number" id="text" name="drone" [(ngModel)]="contact.telephone"
