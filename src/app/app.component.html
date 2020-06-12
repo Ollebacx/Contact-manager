@@ -30,6 +30,8 @@
       <input type="number" id="text" name="drone" [(ngModel)]="contact.telephone"
         [ngModelOptions]="{standalone: true}"><br>
       <button class="button_guardar" (click)="saveContact(contact)">Guardar Contacto</button>
+      <button class="contact_all" [hidden]="this.contactAllButtonPressed == true || contactList.length == 0" (click)="contactAll()">Marcar todos como contactados</button>
+      <button class="undo_contact_all" [hidden]="this.contactAllButtonPressed == false" (click)="undoContactAll()">Desmarcar todos</button>
       <div [ngClass]="{'contactedStyle': this.contact.contacted == true}" *ngFor="let contact of contactList">
         <span>{{contact.name}}</span><br>
         <span>{{contact.lastname}}</span><br>

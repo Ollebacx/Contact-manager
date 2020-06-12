@@ -18,8 +18,8 @@ export class AppComponent {
   };
   public error: boolean = false;
   public nameError: string = '';
-
   public emailError: string = '';
+  public contactAllButtonPressed: boolean = false;
   
 
   saveContact(contact: any) {
@@ -61,4 +61,14 @@ export class AppComponent {
     this.emailError = '';
     this.error = false;
   }
-}
+  contactAll(){
+    this.contactList.map(a=>a.contacted=true);
+    this.contactAllButtonPressed = true;
+    }
+  undoContactAll(){
+    this.contactList.map(a=>a.contacted=false);
+    this.contactAllButtonPressed = false;
+    }
+  
+  }
+
