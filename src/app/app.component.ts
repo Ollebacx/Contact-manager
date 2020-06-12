@@ -34,14 +34,8 @@ export class AppComponent {
         lastname: '',
         email: '',
         telephone: null,
-
-      };
-    }
-  }
-
-
         contacted: false,
-      }
+      };
     }
   }
 
