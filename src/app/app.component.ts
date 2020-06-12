@@ -33,20 +33,20 @@ export class AppComponent {
     }
   }
 
-  eliminarContacto(task: any): void{
+  eliminarContacto(task: any): void {
     this.contactList = this.contactList.filter(i => i != task)
   }
 
-onBlur() {
-  if (this.contact.name.length < 6) {
-    this.nameError = 'Tu nombre tiene que tener más de 6 caracteres.';
-    this.error = true;
+  onBlur() {
+    if (this.contact.name.length < 6) {
+      this.nameError = 'Tu nombre tiene que tener más de 6 caracteres.';
+      this.error = true;
+    }
   }
-}
-onFocus() {
-  this.nameError = '';
-  this.error = false;
-}
+  onFocus() {
+    this.nameError = '';
+    this.error = false;
+  }
 
 }
 
