@@ -31,19 +31,36 @@
         [ngModelOptions]="{standalone: true}"><br>
       <button class="button_guardar" (click)="saveContact(contact)">Guardar Contacto</button>
       <button class="contact_all" [hidden]="this.contactAllButtonPressed == true || contactList.length == 0" (click)="contactAll()">Marcar todos como contactados</button>
-      <button class="undo_contact_all" [hidden]="this.contactAllButtonPressed == false" (click)="undoContactAll()">Desmarcar todos</button>
-      <div [ngClass]="{'contactedStyle': this.contact.contacted == true}" *ngFor="let contact of contactList">
-        <span>{{contact.name}}</span><br>
-        <span>{{contact.lastname}}</span><br>
-        <span>{{contact.email}}</span><br>
-        <span>{{contact.telephone}}</span><br>
-        <button (click)="eliminarContacto(contact)">Eliminar</button>
-        <button class="button_contact" [hidden]="this.contact.contacted == true"
-          (click)="contacted(contact)">Contactar</button>
-        <button class="button_undo" [hidden]="this.contact.contacted == false"
-          (click)="this.contact.contacted = !this.contact.contacted">Deshacer</button>
+      <button class="undo_contact_all" [hidden]="this.contactAllButtonPressed == false || this.contact.contacted == true" (click)="undoContactAll()">Desmarcar todos</button>
+      <div [hidden]="this.hideContacted == true" [ngClass]="{'contactedStyle': this.contact.contacted == true}" *ngFor="let contact of contactList">
+        <div>
+          <span>{{contact.name}}</span><br>
+          <span>{{contact.lastname}}</span><br>
+          <span>{{contact.email}}</span><br>
+          <span >{{contact.telephone}}</span><br>
+          <button (click)="eliminarContacto(contact)">Eliminar</button>
+          <button class="button_contact" [hidden]="this.contact.contacted == true"
+            (click)="contacted(contact)">Contactar</button>
+          <button class="button_undo" [hidden]="this.contact.contacted == false"
+            (click)="contacted(contact)">Deshacer</button>
+        </div>
+      </div>
+      <div [hidden]="this.hideContacted == false" [ngClass]="{'contactedStyle': this.contact.contacted == true}" *ngFor="let contact of contactList">
+        <div [hidden]="this.contact.contacted == true">
+          <span>{{contact.name}}</span><br>
+          <span>{{contact.lastname}}</span><br>
+          <span>{{contact.email}}</span><br>
+          <span >{{contact.telephone}}</span><br>
+          <button (click)="eliminarContacto(contact)">Eliminar</button>
+          <button class="button_contact" [hidden]="this.contact.contacted == true"
+            (click)="contacted(contact)">Contactar</button>
+          <button class="button_undo" [hidden]="this.contact.contacted == false"
+            (click)="contacted(contact)">Deshacer</button>
+        </div>
       </div>
       <button (click)="eliminarTodo()">Eliminar todo</button>
+      <button [hidden]="this.hideContacted == true" (click)="buttonHideContacted()">Ocultar contactados</button>
+      <button [hidden]="this.hideContacted == false" (click)="buttonShowContacted()">Mostrar contactados</button>
     </form>
   </div>
 

@@ -20,6 +20,7 @@ export class AppComponent {
   public nameError: string = '';
   public emailError: string = '';
   public contactAllButtonPressed: boolean = false;
+  public hideContacted: boolean = false;
   
 
   saveContact(contact: any) {
@@ -71,7 +72,12 @@ export class AppComponent {
     this.contactList.map(a=>a.contacted=false);
     this.contactAllButtonPressed = false;
     }
-    contacted(contact){
-      contact.contacted = true}
+  contacted(contact){
+    contact.contacted = !contact.contacted
   }
-
+  buttonHideContacted(){
+      this.hideContacted = true
+  }
+  buttonShowContacted(){
+      this.hideContacted = false}
+  }
