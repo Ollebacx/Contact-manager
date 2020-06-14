@@ -71,6 +71,7 @@ export class AppComponent {
     this.contactList.map(a=>a.contacted=false);
     this.contactAllButtonPressed = false;
     }
-  
+    contacted(contact){
+      contact.contacted = true}
   }
 

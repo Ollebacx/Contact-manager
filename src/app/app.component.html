@@ -39,7 +39,7 @@
         <span>{{contact.telephone}}</span><br>
         <button (click)="eliminarContacto(contact)">Eliminar</button>
         <button class="button_contact" [hidden]="this.contact.contacted == true"
-          (click)="this.contact.contacted = !this.contact.contacted">Contactar</button>
+          (click)="contacted(contact)">Contactar</button>
         <button class="button_undo" [hidden]="this.contact.contacted == false"
           (click)="this.contact.contacted = !this.contact.contacted">Deshacer</button>
       </div>
