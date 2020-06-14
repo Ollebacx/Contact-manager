@@ -9,6 +9,7 @@ import { convertActionBinding } from '@angular/compiler/src/compiler_util/expres
 export class AppComponent {
   title = 'contact-manager';
   public contactList: any[] = [];
+  public contactFilterList: any[] = [];
   public contact: any = {
     name: '',
     lastname: '',
@@ -22,8 +23,9 @@ export class AppComponent {
   public errortext: string = '';
   public contactAllButtonPressed: boolean = false;
   public hideContacted: boolean = false;
-
-
+  weekday = ['Monday', 'Tuesday', 'Wedeneday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+  months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'Augost', 'September', 'October', 'November', 'December'];
+  today = this.weekday[new Date().getDay()] + ', ' + new Date().getDate() + ' of ' + this.months[new Date().getMonth()] + ' of ' + new Date().getFullYear()
   saveContact(contact: any) {
     if (
       this.contact.name.length > 6 &&
@@ -32,6 +34,7 @@ export class AppComponent {
       this.contact.email.length > 0
     ) {
       this.contactList.push(contact);
+      this.contactFilterList.push(contact);
 
       this.contact = {
         name: '',
@@ -65,7 +68,6 @@ export class AppComponent {
       this.emailError = 'Este correo ya esta registrado';
       this.error = true;
     }
-    console.log(this.contactList.some((contact) => contact.email === this.contact.email))
   }
   onFocus() {
     this.nameError = '';
@@ -86,11 +88,14 @@ export class AppComponent {
       return this.contactAllButtonPressed = true;
     }
   }
-  buttonHideContacted() {
-    this.hideContacted = true
-  }
-  buttonShowContacted() {
-    this.hideContacted = false
+  filterContacts(n) {
+    if (n === 1) {
+      this.contactFilterList = this.contactList.filter(c => c);
+    } else if (n === 2) {
+      this.contactFilterList = this.contactList.filter(c => !c.contacted);
+    } else {
+      this.contactFilterList = this.contactList.filter(c => c.contacted);
+    }
   }
 }
 

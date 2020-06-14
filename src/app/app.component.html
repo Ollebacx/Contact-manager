@@ -64,11 +64,20 @@
     <!-- Page Content -->
     <div id="page-content-wrapper">
       <div class="row">
-        <div class="col  ml-4 mt-5">
-          <span class="h3 mt-4 comp">4st June, 2020</span>
+        <div class="col text-center ml-4 mt-5">
+          <span class="h3 mt-4 comp d-flex">{{today}}
+            <div class="btn-group ml-auto" role="group" aria-label="Basic example">
+              <button type="button" class="btn filter-btn" (click)="filterContacts(1)">All</button>
+              <button type="button" class="btn filter-btn" (click)="filterContacts(2)">Pending</button>
+              <button type="button" class="btn filter-btn" (click)="filterContacts(3)">Called</button>
+            </div>
+          </span>
+            <h4 class="mt-5 pt-5" [hidden]="this.contactList.length !== 0">
+              You haven't added a contact to the call list today
+            </h4>
           <div class="card-columns mt-4">
             <div class="card p-0" [ngClass]="{'contactedStyle': this.contact.contacted == true}"
-              *ngFor="let contact of contactList">
+              *ngFor="let contact of contactFilterList">
               <div class="card-header p-0 m-0 d-flex">
                 <img src="https://cdn3.iconfinder.com/data/icons/avatars-round-flat/33/avat-01-512.png"
                   class="rounded m-2" alt="user icon profile" width="40" height="40">
@@ -104,13 +113,14 @@
               </div>
             </div>
           </div>
-
-          <button class="btn btn-info contact_all" [hidden]="this.contactAllButtonPressed == true || contactList.length == 0"
-            (click)="contactAll()">Marcar todos como contactados</button>
+          <div [hidden]="this.errortext.length == 0" class="error">{{errortext}}</div>
+          <button class="btn btn-info contact_all"
+            [hidden]="this.contactAllButtonPressed == true || contactList.length == 0" (click)="contactAll()">Marcar
+            todos como contactados</button>
           <button class="btn btn-info undo_contact_all" [hidden]="this.contactAllButtonPressed == false"
             (click)="undoContactAll()">Desmarcar
             todos</button>
-          <button class="btn btn-outline-danger" (click)="eliminarTodo()">Eliminar todo</button>
+          <button class="btn btn-outline-danger" (click)="eliminarTodo()" [hidden]="this.contactList.length === 0">Eliminar todo</button>
         </div>
       </div>
     </div>
