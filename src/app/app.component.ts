@@ -19,6 +19,7 @@ export class AppComponent {
   public error: boolean = false;
   public nameError: string = '';
   public emailError: string = '';
+  public errortext: string = '';
   public contactAllButtonPressed: boolean = false;
   public hideContacted: boolean = false;
   
@@ -26,7 +27,9 @@ export class AppComponent {
   saveContact(contact: any) {
     if (
       this.contact.name.length > 6 &&
-      !this.contactList.some((contact) => contact.email == this.contact.email)
+      !this.contactList.some((contact) => contact.email == this.contact.email) &&
+      this.contact.lastname.length > 0 && this.contact.telephone != null &&
+      this.contact.email.length > 0
     ) {
       this.contactList.push(contact);
 
@@ -36,7 +39,9 @@ export class AppComponent {
         email: '',
         telephone: null,
         contacted: false,
-      };
+      } 
+    } else{
+      this.errortext = 'Tienes que rellenar todos los campos correctamente'
     }
     if (this.contactList.every((contact)=> contact.contacted === true)){
       return this.contactAllButtonPressed = true;

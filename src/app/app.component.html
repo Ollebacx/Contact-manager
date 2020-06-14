@@ -58,6 +58,7 @@
             (click)="contacted(contact)">Deshacer</button>
         </div>
       </div>
+      <div [hidden]="this.errortext.length == 0"  class="error">{{errortext}}</div>
       <button (click)="eliminarTodo()">Eliminar todo</button>
       <button [hidden]="this.hideContacted == true" (click)="buttonHideContacted()">Ocultar contactados</button>
       <button [hidden]="this.hideContacted == false" (click)="buttonShowContacted()">Mostrar contactados</button>
