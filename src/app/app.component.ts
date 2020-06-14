@@ -38,6 +38,9 @@ export class AppComponent {
         contacted: false,
       };
     }
+    if (this.contactList.every((contact)=> contact.contacted === true)){
+      return this.contactAllButtonPressed = true;
+    } else this.contactAllButtonPressed = false;
   }
 
   eliminarContacto(task: any): void {
@@ -73,7 +76,10 @@ export class AppComponent {
     this.contactAllButtonPressed = false;
     }
   contacted(contact){
-    contact.contacted = !contact.contacted
+    contact.contacted = !contact.contacted;
+    if (this.contactList.every((contact)=> contact.contacted === true)){
+      return this.contactAllButtonPressed = true;
+    }
   }
   buttonHideContacted(){
       this.hideContacted = true
