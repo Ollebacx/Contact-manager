@@ -19,13 +19,16 @@ export class AppComponent {
   };
   public error: boolean = false;
   public nameError: string = '';
+  public lastnameError: string = '';
   public emailError: string = '';
+  public phoneError: string = '';
   public errortext: string = '';
   public contactAllButtonPressed: boolean = false;
   public hideContacted: boolean = false;
   weekday = ['Monday', 'Tuesday', 'Wedeneday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
   months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'Augost', 'September', 'October', 'November', 'December'];
-  today = this.weekday[new Date().getDay()] + ', ' + new Date().getDate() + ' of ' + this.months[new Date().getMonth()] + ' of ' + new Date().getFullYear()
+  today = this.weekday[new Date().getDay()] + ', ' + new Date().getDate() + ' of ' + this.months[new Date().getMonth()] + ' of ' + new Date().getFullYear();
+
   saveContact(contact: any) {
     if (
       this.contact.name.length > 6 &&
@@ -68,10 +71,24 @@ export class AppComponent {
       this.emailError = 'Este correo ya esta registrado';
       this.error = true;
     }
+    if (this.contact.email.length < 6) {
+      this.emailError = 'Este campo debe de tener más de 6 caracteres.';
+      this.error = true;
+    }
+    if (this.contact.telephone === null) {
+      this.phoneError = 'Este campo no puede quedar vacío.';
+      this.error = true;
+    }
+    if (this.contact.lastname.length < 1) {
+      this.lastnameError = 'Este campo no puede quedar vacío.';
+      this.error = true;
+    }
   }
   onFocus() {
     this.nameError = '';
+    this.lastnameError = '';
     this.emailError = '';
+    this.phoneError = '';
     this.error = false;
   }
   contactAll() {
