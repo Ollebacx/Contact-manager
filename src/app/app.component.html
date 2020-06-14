@@ -1,52 +1,132 @@
 <!DOCTYPE html>
-<html lang="">
+<html lang="en">
 
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title></title>
+  <title>Call Me Maybe</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+    integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
 </head>
 
 <body>
   <div id="container">
-    <form>
-      <h1>Agenda</h1>
-
-      <input placeholder="Search" type="search" id="text" [(ngModel)]="contact.name" [ngModelOptions]="{standalone: true}"><br>
-
-      <label for="text">First Name</label>
-      <input [ngClass]="{'inputError': nameError.length > 0 && contact.name != ''}" type="text" id="text"
-        [(ngModel)]="contact.name" [ngModelOptions]="{standalone: true}" (focus)="onFocus()" (blur)="onBlur()"><br>
-      <span [hidden]="this.contact.name.length == 0 || this.contact.name.length > 6 || nameError == ''"
-        class="error">{{nameError}}<br></span>
-      <label for="text">Last Name</label>
-      <input type="text" id="text" [(ngModel)]="contact.lastname" [ngModelOptions]="{standalone: true}"><br>
-
-      <label for="text">Email</label>
-      <input [ngClass]="{'inputError': emailError.length > 0}" type="email" id="text" [(ngModel)]="contact.email" [ngModelOptions]="{standalone: true}" (blur)="onBlur()" (focus)="onFocus()"  ><br>
-      <span [hidden]="this.contact.email.length == 0 || emailError ==''" class="error">{{emailError}}<br></span>
-      <label for="text">Phone number</label>
-      <input type="number" id="text" name="drone" [(ngModel)]="contact.telephone"
-        [ngModelOptions]="{standalone: true}"><br>
-      <button class="button_guardar" (click)="saveContact(contact)">Guardar Contacto</button>
-      <button class="contact_all" [hidden]="this.contactAllButtonPressed == true || contactList.length == 0" (click)="contactAll()">Marcar todos como contactados</button>
-      <button class="undo_contact_all" [hidden]="this.contactAllButtonPressed == false" (click)="undoContactAll()">Desmarcar todos</button>
-      <div [ngClass]="{'contactedStyle': this.contact.contacted == true}" *ngFor="let contact of contactList">
-        <span>{{contact.name}}</span><br>
-        <span>{{contact.lastname}}</span><br>
-        <span>{{contact.email}}</span><br>
-        <span>{{contact.telephone}}</span><br>
-        <button (click)="eliminarContacto(contact)">Eliminar</button>
-        <button class="button_contact" [hidden]="this.contact.contacted == true"
-          (click)="contacted(contact)">Contactar</button>
-        <button class="button_undo" [hidden]="this.contact.contacted == false"
-          (click)="this.contact.contacted = !this.contact.contacted">Deshacer</button>
+    <!-- Navbar -->
+    <nav id="menu" class="navbar text-white bgsecondary fixed-top">
+      <span class="h3">Call Me Maybe</span>
+      <form id="search-container" class="row form-inline ml-auto">
+        <input id="search" class="col-10 form-control" type="search" placeholder="Search" aria-label="Search">
+        <button class="col-2 btn btn-outline-light" type="submit">Search</button>
+      </form>
+    </nav>
+    <!-- Sidebar -->
+    <div class="bgprimary fixed-top" id="sidebar-wrapper">
+      <div class="sidebar-heading ml-4 mt-5">
+        <span class="h3">Add a new contact to call</span>
       </div>
-      <button (click)="eliminarTodo()">Eliminar todo</button>
-    </form>
+      <form class="m-4">
+        <div class="form-group">
+          <label for="name">First Name</label>
+          <input type="text" id="name" class="form-control"
+            [ngClass]="{'inputError': nameError.length > 0 && contact.name != ''}" [(ngModel)]="contact.name"
+            [ngModelOptions]="{standalone: true}" (focus)="onFocus()" (blur)="onBlur()">
+          <small [hidden]="this.contact.name.length == 0 || this.contact.name.length > 6 || nameError == ''"
+            class="error">{{nameError}}<br></small>
+        </div>
+
+        <div class="form-group">
+          <label for="lastname">Last Name</label>
+          <input type="text" id="lastname" class="form-control" [(ngModel)]="contact.lastname"
+            [ngModelOptions]="{standalone: true}">
+        </div>
+
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" class="form-control" [ngClass]="{'inputError': emailError.length > 0}"
+            [(ngModel)]="contact.email" [ngModelOptions]="{standalone: true}" (blur)="onBlur()" (focus)="onFocus()">
+          <small [hidden]="this.contact.email.length == 0 || emailError ==''" class="error">{{emailError}}<br></small>
+        </div>
+
+        <div class="form-group">
+          <label for="phone">Phone number</label>
+          <input type="text" id="phone" class="form-control" name="drone" [(ngModel)]="contact.telephone"
+            [ngModelOptions]="{standalone: true}">
+        </div>
+        <div class="text-center">
+          <button type="submit" class="btn btn-outline-primary pl-5 pr-5 m-3">Reset</button>
+          <button type="submit" class="btn btn-primary pl-5 pr-5 m-3" (click)="saveContact(contact)">Save</button>
+        </div>
+      </form>
+    </div>
+    <!-- /#sidebar-wrapper -->
+
+    <!-- Page Content -->
+    <div id="page-content-wrapper">
+      <div class="row">
+        <div class="col  ml-4 mt-5">
+          <span class="h3 mt-4 comp">4st June, 2020</span>
+          <div class="card-columns mt-4">
+            <div class="card p-0" [ngClass]="{'contactedStyle': this.contact.contacted == true}"
+              *ngFor="let contact of contactList">
+              <div class="card-header p-0 m-0 d-flex">
+                <img src="https://cdn3.iconfinder.com/data/icons/avatars-round-flat/33/avat-01-512.png"
+                  class="rounded m-2" alt="user icon profile" width="40" height="40">
+                <span class="align-self-center">
+                  {{contact.name}}
+                </span>
+                <button type="submit" class="btn comp ml-auto" (click)="eliminarContacto(contact)">
+                  <svg class="bi bi-trash" width="1.2em" height="1.2em" viewBox="0 0 16 16" fill="currentColor"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path
+                      d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z" />
+                    <path fill-rule="evenodd"
+                      d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4L4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z" />
+                  </svg></button>
+              </div>
+              <div class="card-body">
+                <p>Full Name: {{contact.name}} {{contact.lastname}}</p>
+                <p>Telephone Number: {{contact.telephone}}</p>
+                <p>Email: {{contact.email}}</p>
+                <p>Notes:</p>
+
+              </div>
+              <div class="card-footer p-0 m-0">
+                <div class="text-center">
+                  <form class="inline" action="mailto:someone@example.com" method="post" enctype="text/plain">
+                    <button type="submit" class="btn btn-link m-3"><small>SEND EMAIL</small></button>
+                  </form>
+                  <button type="submit" class="btn btn-link m-3" [hidden]="this.contact.contacted == true"
+                    (click)="contacted(contact)"><small>MARK AS CALLED</small></button>
+                  <button type="submit" class="btn btn-link m-3" [hidden]="this.contact.contacted == false"
+                    (click)="this.contact.contacted = !this.contact.contacted"><small>MARK AS PENDING</small></button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <button class="btn btn-info contact_all" [hidden]="this.contactAllButtonPressed == true || contactList.length == 0"
+            (click)="contactAll()">Marcar todos como contactados</button>
+          <button class="btn btn-info undo_contact_all" [hidden]="this.contactAllButtonPressed == false"
+            (click)="undoContactAll()">Desmarcar
+            todos</button>
+          <button class="btn btn-outline-danger" (click)="eliminarTodo()">Eliminar todo</button>
+        </div>
+      </div>
+    </div>
+    <!-- /#page-content-wrapper -->
   </div>
 
+
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+    integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+    integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+    integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+    crossorigin="anonymous"></script>
 </body>
 
 </html>

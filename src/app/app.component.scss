@@ -1,15 +1,68 @@
-#container {
-  background-color: gray;
-  border: 1px solid black;
-  width: 400px;
-  margin: 40px auto;
-  
+.row {
+  padding: 0px;
+  margin: 0px;
+}
+// COLORS
+.primary {
+  color: #E7ECFF;
+}
+.secondary {
+  color: #6c8bff;
+}
+.comp-light {
+  color: #FFDFEE;
+}
+.comp {
+  color: #FF1D89;
+}
+// BACKGROUND COLORS
+.bgprimary {
+  background-color: #E7ECFF;
+}
+.bgsecondary {
+  background-color: #6c8bff;
+}
+.bgcomp-light {
+  background-color: #FFDFEE;
+}
+.bgcomp {
+  background-color: #FF1D89;
 }
 
-h1 {
-  text-align: center;
+// MENU
+#menu {
+  height: 50px;
+}
+#search-container {
+  width: 30%;
+  margin-right: 20px;
 }
 
+// SIDEBAR
+#sidebar-wrapper {
+  width: 30vw;
+  min-height: 100vh;
+  margin-top: 50px;
+}
+
+#sidebar-wrapper .sidebar-heading {
+  font-size: 1rem;
+}
+
+//PAGE CONTENT
+#page-content-wrapper {
+  margin-left: 30vw;
+  margin-top: 50px;
+}
+
+// CARD
+.card{
+  min-width: 250px !important;
+  max-width: 250px !important;
+}
+.inline {
+  display: inline !important;
+}
 .button_guardar {
   background-color: green;
   color: white;
@@ -24,3 +77,4 @@ h1 {
 .inputError{border:1px solid red;}
 
 .contactedStyle{text-decoration: line-through;}
+
