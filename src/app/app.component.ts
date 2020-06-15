@@ -25,9 +25,10 @@ export class AppComponent {
   public errortext: string = '';
   public contactAllButtonPressed: boolean = false;
   public hideContacted: boolean = false;
-  weekday = ['Monday', 'Tuesday', 'Wedeneday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
-  months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'Augost', 'September', 'October', 'November', 'December'];
-  today = this.weekday[new Date().getDay()] + ', ' + new Date().getDate() + ' of ' + this.months[new Date().getMonth()] + ' of ' + new Date().getFullYear();
+  public weekday = ['Monday', 'Tuesday', 'Wedeneday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+  public months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'Augost', 'September', 'October', 'November', 'December'];
+  public today = this.weekday[new Date().getDay()] + ', ' + new Date().getDate() + ' of ' + this.months[new Date().getMonth()] + ' of ' + new Date().getFullYear();
+  public search = '';
 
 
   saveContact(contact: any) {
@@ -114,8 +115,10 @@ export class AppComponent {
       this.contactFilterList = this.contactList.filter(c => c);
     } else if (n === 2) {
       this.contactFilterList = this.contactList.filter(c => !c.contacted);
-    } else {
+    } else if (n === 3) {
       this.contactFilterList = this.contactList.filter(c => c.contacted);
+    } else {
+      this.contactFilterList = this.contactList.filter(c => c.name.includes(this.search) || c.email.includes(this.search));
     }
   }
   resetForm() {
