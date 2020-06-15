@@ -15,8 +15,8 @@
     <!-- Navbar -->
     <nav id="menu" class="navbar text-white bgsecondary fixed-top">
       <span class="h3">Call Me Maybe</span>
-      <form id="search-container" class="row form-inline ml-auto">
-        <input class="col-10 form-control" type="search" placeholder="Search" aria-label="Search" [(ngModel)]="search" [ngModelOptions]="{standalone: true}" (keyup.enter)="filterContacts(4)">
+      <form class="row form-inline ml-auto">
+        <input id="search-container" class="col-10 form-control" type="search" placeholder="Search" aria-label="Search" [(ngModel)]="search" [ngModelOptions]="{standalone: true}" (keyup.enter)="filterContacts(4)">
       </form>
     </nav>
     <!-- Sidebar -->
@@ -82,7 +82,7 @@
             <div class="card p-0 col col-4 mr-4 mt-3" [ngClass]="{'contactedStyle': this.contact.contacted == true}"
               *ngFor="let contact of contactFilterList">
               <div class="card-header p-0 m-0 d-flex">
-                <img src="https://cdn3.iconfinder.com/data/icons/avatars-round-flat/33/avat-01-512.png"
+                <img src="https://cdn2.iconfinder.com/data/icons/strategy-management/512/target-512.png"
                   class="rounded m-2" alt="user icon profile" width="40" height="40">
                 <span class="align-self-center">
                   {{contact.name}}
@@ -117,7 +117,7 @@
             </div>
           </div>
           <button class="btn btn-outline-danger mt-5 mr-3" (click)="eliminarTodo()"
-            [hidden]="this.contactList.length === 0">Delete all ({{contactList.length}})</button>
+            [hidden]="this.contactFilterList.length === 0">Delete all ({{contactList.length}})</button>
           <button class="btn btn-info mt-5 mr-5 ml-3"
             [hidden]="this.contactAllButtonPressed == true || contactFilterList.length == 0" (click)="contactAll()">Mark everyone as called </button>
           <button class="btn btn-info mt-5 mr-5 ml-3" [hidden]="this.contactAllButtonPressed == false || contactFilterList.length == 0"

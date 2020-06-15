@@ -59,10 +59,12 @@ export class AppComponent {
 
   eliminarContacto(task: any): void {
     this.contactList = this.contactList.filter(i => i != task)
+    this.contactFilterList = this.contactList.filter(i => i != task)
     localStorage.setItem('contacts', JSON.stringify(this.contactList));
   }
   eliminarTodo(): void {
     this.contactList = this.contactList.filter(i => i == '')
+    this.contactFilterList = this.contactList.filter(i => i == '')
     localStorage.setItem('contacts', JSON.stringify(this.contactList));
   }
 
