@@ -16,7 +16,7 @@
     <nav id="menu" class="navbar text-white bgsecondary fixed-top">
       <span class="h3">Call Me Maybe</span>
       <form id="search-container" class="row form-inline ml-auto">
-        <input id="search" class="col-10 form-control" type="search" placeholder="Search" aria-label="Search" [(ngModel)]="search" [ngModelOptions]="{standalone: true}" (keyup.enter)="filterContacts(4)">
+        <input class="col-10 form-control" type="search" placeholder="Search" aria-label="Search" [(ngModel)]="search" [ngModelOptions]="{standalone: true}" (keyup.enter)="filterContacts(4)">
       </form>
     </nav>
     <!-- Sidebar -->
@@ -69,7 +69,7 @@
       <div class="row">
         <div class="col text-center ml-4 mt-5 mb-5">
           <span class="h3 mt-4 comp d-flex">{{today}}
-            <div class="btn-group ml-auto" role="group" aria-label="Basic example">
+            <div class="btn-group ml-auto mr-5" role="group" aria-label="Basic example">
               <button type="button" class="btn filter-btn" (click)="filterContacts(1)">All</button>
               <button type="button" class="btn filter-btn" (click)="filterContacts(2)">Pending</button>
               <button type="button" class="btn filter-btn" (click)="filterContacts(3)">Called</button>
@@ -78,8 +78,8 @@
           <h4 class="mt-5 pt-5" [hidden]="this.contactList.length !== 0">
             You haven't added a contact to the call list today
           </h4>
-          <div class="card-columns mt-4 text-left">
-            <div class="card p-0" [ngClass]="{'contactedStyle': this.contact.contacted == true}"
+          <div class="row card-columns mt-4 text-left">
+            <div class="card p-0 col col-4 mr-4 mt-3" [ngClass]="{'contactedStyle': this.contact.contacted == true}"
               *ngFor="let contact of contactFilterList">
               <div class="card-header p-0 m-0 d-flex">
                 <img src="https://cdn3.iconfinder.com/data/icons/avatars-round-flat/33/avat-01-512.png"
