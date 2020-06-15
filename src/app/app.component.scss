@@ -1,26 +1,90 @@
-#container {
-  background-color: gray;
-  border: 1px solid black;
-  width: 400px;
-  margin: 40px auto;
-  
+.row {
+  padding: 0px;
+  margin: 0px;
 }
-
-h1 {
-  text-align: center;
+// COLORS
+.primary {
+  color: #E7ECFF;
 }
-
+.secondary {
+  color: #6c8bff;
+}
+.comp-light {
+  color: #FFDFEE;
+}
+.comp {
+  color: #FF1D89;
+}
+// BACKGROUND COLORS
+.bgprimary {
+  background-color: #E7ECFF;
+}
+.bgsecondary {
+  background-color: #6c8bff;
+}
+.bgcomp-light {
+  background-color: #FFDFEE;
+}
+.bgcomp {
+  background-color: #FF1D89;
+}
+// MENU
+#menu {
+  height: 50px;
+}
+#search-container {
+  width: 300px;
+}
+// SIDEBAR
+#sidebar-wrapper {
+  width: 30vw;
+  min-height: 100vh;
+  margin-top: 50px;
+}
+#sidebar-wrapper .sidebar-heading {
+  font-size: 1rem;
+}
+//PAGE CONTENT
+#page-content-wrapper {
+  margin-left: 30vw;
+  margin-top: 50px;
+}
+// CARD
+.card{
+  min-width: 250px !important;
+  max-width: 250px !important;
+}
+.inline {
+  display: inline !important;
+}
+// FILTER BTN
+.filter-btn {
+  color: rgb(50, 50, 50);
+}
+.filter-btn:hover {
+  color: #6c8bff;
+}
+.filter-btn:focus {
+  color: #FF1D89;
+}
+.btn:focus{
+  box-shadow: none !important;
+}
 .button_guardar {
   background-color: green;
   color: white;
 }
-
 .button_eliminar {
   background-color: red;
   color: white;
 }
-.error{color:Red;}
+.error{
+  color:Red;
+}
+.inputError{
+  border:1px solid red;
+}
+.contactedStyle{
+  text-decoration: line-through;
+}
 
-.inputError{border:1px solid red;}
-
-.contactedStyle{text-decoration: line-through;}

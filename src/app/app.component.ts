@@ -8,7 +8,8 @@ import { convertActionBinding } from '@angular/compiler/src/compiler_util/expres
 })
 export class AppComponent {
   title = 'contact-manager';
-  public contactList: any[] = [];
+  public contactList = JSON.parse(localStorage.getItem('contacts')) || [];
+  public contactFilterList = JSON.parse(localStorage.getItem('contacts')) || [];
   public contact: any = {
     name: '',
     lastname: '',
@@ -23,16 +24,22 @@ export class AppComponent {
   public phoneError: string = '';
   public errortext: string = '';
   public contactAllButtonPressed: boolean = false;
-  public hideContacted: boolean = false;  
+  public hideContacted: boolean = false;
+  public weekday = ['Monday', 'Tuesday', 'Wedeneday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+  public months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'Augost', 'September', 'October', 'November', 'December'];
+  public today = this.weekday[new Date().getDay()] + ', ' + new Date().getDate() + ' of ' + this.months[new Date().getMonth()] + ' of ' + new Date().getFullYear();
+  public search = '';
+
 
   saveContact(contact: any) {
     if (
-      this.contact.name.length > 6 &&
+      this.contact.name.length > 4 &&
       !this.contactList.some((contact) => contact.email == this.contact.email) &&
-      this.contact.lastname.length > 3 && this.contact.telephone != null &&
-      this.contact.email.length > 3
-    ) {
+      this.contact.lastname.length > 0 && this.contact.telephone != null &&
+      this.contact.email.length != 0) {
       this.contactList.push(contact);
+      this.contactFilterList.push(contact);
+      localStorage.setItem('contacts', JSON.stringify(this.contactList));
 
       this.contact = {
         name: '',
@@ -40,25 +47,30 @@ export class AppComponent {
         email: '',
         telephone: null,
         contacted: false,
-      } 
-    } else{
-      this.errortext = 'Tienes que rellenar todos los campos correctamente'
+      }
+    } else {
+      this.errortext = 'Tienes que rellenar todos los campos correctamente';
+      this.onBlur();
     }
-    if (this.contactList.every((contact)=> contact.contacted === true)){
+    if (this.contactList.every((contact) => contact.contacted === true)) {
       return this.contactAllButtonPressed = true;
     } else this.contactAllButtonPressed = false;
   }
 
   eliminarContacto(task: any): void {
     this.contactList = this.contactList.filter(i => i != task)
+    this.contactFilterList = this.contactList.filter(i => i != task)
+    localStorage.setItem('contacts', JSON.stringify(this.contactList));
   }
   eliminarTodo(): void {
     this.contactList = this.contactList.filter(i => i == '')
+    this.contactFilterList = this.contactList.filter(i => i == '')
+    localStorage.setItem('contacts', JSON.stringify(this.contactList));
   }
 
   onBlur() {
-    if (this.contact.name.length < 6) {
-      this.nameError = 'Tu nombre tiene que tener más de 6 caracteres.';
+    if (this.contact.name.length <= 4) {
+      this.nameError = 'Tu nombre tiene que tener más de 4 caracteres.';
       this.error = true;
     }
     if (this.contactList.some((contact) => contact.email === this.contact.email)) {
@@ -77,7 +89,6 @@ export class AppComponent {
       this.lastnameError = 'Este campo no puede quedar vacío.';
       this.error = true;
     }
-    console.log(this.contactList.some((contact) => contact.email === this.contact.email))
   }
   onFocus() {
     this.nameError = '';
@@ -86,23 +97,43 @@ export class AppComponent {
     this.phoneError = '';
     this.error = false;
   }
-  contactAll(){
-    this.contactList.map(a=>a.contacted=true);
+  contactAll() {
+    this.contactList.map(a => a.contacted = true);
     this.contactAllButtonPressed = true;
-    }
-  undoContactAll(){
-    this.contactList.map(a=>a.contacted=false);
+  }
+  undoContactAll() {
+    this.contactList.map(a => a.contacted = false);
     this.contactAllButtonPressed = false;
-    }
-  contacted(contact){
+  }
+  contacted(contact) {
     contact.contacted = !contact.contacted;
-    if (this.contactList.every((contact)=> contact.contacted === true)){
+    if (this.contactList.every((contact) => contact.contacted === true)) {
       return this.contactAllButtonPressed = true;
     }
   }
-  buttonHideContacted(){
-      this.hideContacted = true
+  filterContacts(n) {
+    if (n === 1) {
+      this.contactFilterList = this.contactList.filter(c => c);
+    } else if (n === 2) {
+      this.contactFilterList = this.contactList.filter(c => !c.contacted);
+    } else if (n === 3) {
+      this.contactFilterList = this.contactList.filter(c => c.contacted);
+    } else {
+      this.contactFilterList = this.contactList.filter(c => c.name.includes(this.search) || c.email.includes(this.search));
+    }
   }
-  buttonShowContacted(){
-      this.hideContacted = false}
+  resetForm() {
+    this.nameError = '';
+    this.lastnameError = '';
+    this.emailError = '';
+    this.phoneError = '';
+    this.error = false;
+    this.contact = {
+      name: '',
+      lastname: '',
+      email: '',
+      telephone: null,
+      contacted: false,
+    }
   }
+}
