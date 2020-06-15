@@ -27,7 +27,7 @@
       </div>
       <form class="m-4">
         <div class="form-group">
-          <label for="name">First Name</label>
+          <label for="name">First Name*</label>
           <input type="text" id="name" class="form-control"
             [ngClass]="{'inputError': nameError.length > 0 && contact.name != ''}" [(ngModel)]="contact.name"
             [ngModelOptions]="{standalone: true}" (focus)="onFocus()" (blur)="onBlur()">
@@ -36,27 +36,31 @@
         </div>
 
         <div class="form-group">
-          <label for="lastname">Last Name</label>
+          <label for="lastname">Last Name*</label>
           <input type="text" id="lastname" class="form-control" [(ngModel)]="contact.lastname"
             [ngModelOptions]="{standalone: true}">
+          <small [hidden]="lastnameError==''" class=" error"> {{ lastnameError }}<br></small>
         </div>
 
         <div class="form-group">
-          <label for="email">Email</label>
+          <label for="email">Email*</label>
           <input type="email" id="email" class="form-control" [ngClass]="{'inputError': emailError.length > 0}"
             [(ngModel)]="contact.email" [ngModelOptions]="{standalone: true}" (blur)="onBlur()" (focus)="onFocus()">
           <small [hidden]="this.contact.email.length == 0 || emailError ==''" class="error">{{emailError}}<br></small>
         </div>
 
         <div class="form-group">
-          <label for="phone">Phone number</label>
+          <label for="phone">Phone number*</label>
           <input type="text" id="phone" class="form-control" name="drone" [(ngModel)]="contact.telephone"
             [ngModelOptions]="{standalone: true}">
+          <small [hidden]="phoneError==''" class=" error"> {{ phoneError }}</small>
+
         </div>
         <div class="text-center">
-          <button type="submit" class="btn btn-outline-primary pl-5 pr-5 m-3">Reset</button>
+          <button type="submit" class="btn btn-outline-primary pl-5 pr-5 m-3" (click)="resetForm()">Reset</button>
           <button type="submit" class="btn btn-primary pl-5 pr-5 m-3" (click)="saveContact(contact)">Save</button>
         </div>
+        <div [hidden]="this.errortext.length == 0" class="error">{{errortext}}</div>
       </form>
     </div>
     <!-- /#sidebar-wrapper -->
@@ -72,10 +76,10 @@
               <button type="button" class="btn filter-btn" (click)="filterContacts(3)">Called</button>
             </div>
           </span>
-            <h4 class="mt-5 pt-5" [hidden]="this.contactList.length !== 0">
-              You haven't added a contact to the call list today
-            </h4>
-          <div class="card-columns mt-4">
+          <h4 class="mt-5 pt-5" [hidden]="this.contactList.length !== 0">
+            You haven't added a contact to the call list today
+          </h4>
+          <div class="card-columns mt-4 text-left">
             <div class="card p-0" [ngClass]="{'contactedStyle': this.contact.contacted == true}"
               *ngFor="let contact of contactFilterList">
               <div class="card-header p-0 m-0 d-flex">
@@ -113,14 +117,12 @@
               </div>
             </div>
           </div>
-          <div [hidden]="this.errortext.length == 0" class="error">{{errortext}}</div>
-          <button class="btn btn-info contact_all"
-            [hidden]="this.contactAllButtonPressed == true || contactList.length == 0" (click)="contactAll()">Marcar
-            todos como contactados</button>
-          <button class="btn btn-info undo_contact_all" [hidden]="this.contactAllButtonPressed == false"
-            (click)="undoContactAll()">Desmarcar
-            todos</button>
-          <button class="btn btn-outline-danger" (click)="eliminarTodo()" [hidden]="this.contactList.length === 0">Eliminar todo</button>
+          <button class="btn btn-outline-danger" (click)="eliminarTodo()"
+            [hidden]="this.contactList.length === 0">Delete all ({{contactList.length}})</button>
+          <button class="btn btn-info"
+            [hidden]="this.contactAllButtonPressed == true || contactFilterList.length == 0" (click)="contactAll()">Mark everyone as called </button>
+          <button class="btn btn-info" [hidden]="this.contactAllButtonPressed == false || contactFilterList.length == 0"
+            (click)="undoContactAll()">Mark everyone as pending</button>
         </div>
       </div>
     </div>

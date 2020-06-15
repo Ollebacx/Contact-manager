@@ -8,8 +8,8 @@ import { convertActionBinding } from '@angular/compiler/src/compiler_util/expres
 })
 export class AppComponent {
   title = 'contact-manager';
-  public contactList: any[] = [];
-  public contactFilterList: any[] = [];
+  public contactList = JSON.parse(localStorage.getItem('contacts')) || [];
+  public contactFilterList = JSON.parse(localStorage.getItem('contacts')) || [];
   public contact: any = {
     name: '',
     lastname: '',
@@ -29,15 +29,16 @@ export class AppComponent {
   months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'Augost', 'September', 'October', 'November', 'December'];
   today = this.weekday[new Date().getDay()] + ', ' + new Date().getDate() + ' of ' + this.months[new Date().getMonth()] + ' of ' + new Date().getFullYear();
 
+
   saveContact(contact: any) {
     if (
-      this.contact.name.length > 6 &&
+      this.contact.name.length > 4 &&
       !this.contactList.some((contact) => contact.email == this.contact.email) &&
       this.contact.lastname.length > 0 && this.contact.telephone != null &&
-      this.contact.email.length > 0
-    ) {
+      this.contact.email.length != 0) {
       this.contactList.push(contact);
       this.contactFilterList.push(contact);
+      localStorage.setItem('contacts', JSON.stringify(this.contactList));
 
       this.contact = {
         name: '',
@@ -47,7 +48,8 @@ export class AppComponent {
         contacted: false,
       }
     } else {
-      this.errortext = 'Tienes que rellenar todos los campos correctamente'
+      this.errortext = 'Tienes que rellenar todos los campos correctamente';
+      this.onBlur();
     }
     if (this.contactList.every((contact) => contact.contacted === true)) {
       return this.contactAllButtonPressed = true;
@@ -56,14 +58,16 @@ export class AppComponent {
 
   eliminarContacto(task: any): void {
     this.contactList = this.contactList.filter(i => i != task)
+    localStorage.setItem('contacts', JSON.stringify(this.contactList));
   }
   eliminarTodo(): void {
     this.contactList = this.contactList.filter(i => i == '')
+    localStorage.setItem('contacts', JSON.stringify(this.contactList));
   }
 
   onBlur() {
-    if (this.contact.name.length < 6) {
-      this.nameError = 'Tu nombre tiene que tener más de 6 caracteres.';
+    if (this.contact.name.length <= 4) {
+      this.nameError = 'Tu nombre tiene que tener más de 4 caracteres.';
       this.error = true;
     }
 
@@ -112,6 +116,20 @@ export class AppComponent {
       this.contactFilterList = this.contactList.filter(c => !c.contacted);
     } else {
       this.contactFilterList = this.contactList.filter(c => c.contacted);
+    }
+  }
+  resetForm() {
+    this.nameError = '';
+    this.lastnameError = '';
+    this.emailError = '';
+    this.phoneError = '';
+    this.error = false;
+    this.contact = {
+      name: '',
+      lastname: '',
+      email: '',
+      telephone: null,
+      contacted: false,
     }
   }
 }
