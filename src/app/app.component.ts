@@ -39,6 +39,7 @@ export class AppComponent {
         telephone: null,
         contacted: false,
       } 
+      this.errortext = '';
     } else{
       this.errortext = 'Tienes que rellenar todos los campos correctamente'
     }
@@ -48,7 +49,8 @@ export class AppComponent {
     this.contactList = this.contactList.filter(i => i != task)
   }
   eliminarTodo(): void {
-    this.contactList = this.contactList.filter(i => i == '')
+    this.contactList = this.contactList.filter(i => i == '');
+    this.errortext = '';
   }
 
   onBlur() {
