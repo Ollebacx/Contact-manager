@@ -73,7 +73,6 @@ export class AppComponent {
       this.nameError = 'Tu nombre tiene que tener más de 4 caracteres.';
       this.error = true;
     }
-
     if (this.contactList.some((contact) => contact.email === this.contact.email)) {
       this.emailError = 'Este correo ya esta registrado';
       this.error = true;
@@ -138,4 +137,3 @@ export class AppComponent {
     }
   }
 }
-
